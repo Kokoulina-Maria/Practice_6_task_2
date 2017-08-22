@@ -34,14 +34,17 @@ namespace Practice_6_task_2
             if (i == 1) ak = a1;
             else if (i == 2) ak = a2;
             else if (i == 3) ak = a3;
-            else ak = A(a1, a2, a3, i - 2) / A(a1, a2, a3, i - 1) + Math.Abs(A(a1, a2, a3, i - 3));//находим нынешний элемент последовательности
+            else
+            {
+                ak = A(a1, a2, a3, i - 2) / A(a1, a2, a3, i - 1) + Math.Abs(A(a1, a2, a3, i - 3));//находим нынешний элемент последовательности
+            }
             return (ak);//возвращаем нынешний элемент последовательности
         }
 
         static void Main(string[] args)
         {
             Console.WriteLine("Программа, генерирующая последовательность ак = а(к–2) / а(к-1) + |а(к–3)|");
-            Console.WriteLine("a1, a2, a3 - первые элементы последовательности, M - нижняя грань (все элементы больше M), N - максимальное количество элементов в последовательности (N>=0).");
+            Console.WriteLine("a1, a2, a3 - первые эл4ементы последовательности, M - нижняя грань (все элементы больше M), N - максимальное количество элементов в последовательности (N>=0).");
             do
             {
                 //ввод данных
@@ -63,11 +66,20 @@ namespace Practice_6_task_2
                         ak = A(a1, a2, a3, i);//находим элемент
                         if (ak > M) Console.Write(ak + " ");//если элемент больше M, выводим его
                         else break;//иначе прекращаем строить последовательность
+                        if ((ak == 0) && (i < N)&& (i>2))
+                        {
+                            Console.WriteLine("Деление на ноль! Последовательность нельзя продолжить");
+                            break;
+                        }
                     }
                     Console.WriteLine();
-                    Console.Write("Причина останова: ");
-                    if (i == N+1) Console.WriteLine("В последовательности " + N + " элементов");
-                    else Console.WriteLine(ak + "<=" + M);
+                    if (ak != 0)
+                    {
+                        Console.Write("Причина останова: ");
+                        if (i == N + 1) Console.WriteLine("В последовательности " + N + " элементов");
+                        else
+                            Console.WriteLine(ak + "<=" + M);
+                    }
                 }                
                 Console.ReadLine();
             } while (true);
